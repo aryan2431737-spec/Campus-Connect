@@ -4,6 +4,14 @@ This project is a full-stack lost-and-found web application for college users. I
 
 The frontend is served directly by the Node.js backend, so running one server starts both the API and the web application.
 
+## One-Click Live Deploy
+
+Use Render Blueprint (included in this repo):
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/aryan2431737-spec/Campus-Connect)
+
+After clicking Deploy, Render reads `render.yaml`, creates the service, provisions a persistent disk, generates `JWT_SECRET`, and deploys automatically.
+
 ## Project Flow
 
 1. A user registers or logs in with email or student ID and password.
@@ -170,6 +178,7 @@ npm install
 SQLITE_PATH=./data/lostandfound.sqlite
 PORT=5000
 JWT_SECRET=your_super_secret_jwt_key
+UPLOADS_DIR=./uploads
 ```
 
 4. Start the server:

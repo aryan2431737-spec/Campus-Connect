@@ -2,7 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 
-const uploadRoot = path.join(__dirname, '..', 'uploads');
+const configuredUploadRoot = process.env.UPLOADS_DIR || path.join(__dirname, '..', 'uploads');
+const uploadRoot = path.isAbsolute(configuredUploadRoot)
+    ? configuredUploadRoot
+    : path.join(__dirname, '..', configuredUploadRoot);
 
 function ensureDirectory(directoryPath) {
     if (!fs.existsSync(directoryPath)) {

@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: campus-connect
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SQLITE_PATH
+        value: /var/data/lostandfound.sqlite
+      - key: UPLOADS_DIR
+        value: /var/data/uploads
+    disk:
+      name: campus-connect-data
+      mountPath: /var/data
+      sizeGB: 1
