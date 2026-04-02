@@ -48,6 +48,16 @@ function bindGlobalEvents() {
             document.getElementById('userDropdown')?.classList.remove('active');
         }
 
+        const sidebar = document.getElementById('sidebar');
+        if (
+            window.innerWidth <= 960 &&
+            sidebar?.classList.contains('active') &&
+            !event.target.closest('#sidebar') &&
+            !event.target.closest('.mobile-menu-btn')
+        ) {
+            sidebar.classList.remove('active');
+        }
+
         if (event.target.classList.contains('modal-overlay')) {
             const modal = event.target.closest('.modal');
             if (modal) {
@@ -1295,8 +1305,8 @@ function showDashboardNotification(message, type = 'info') {
     toast.style.cssText = `
         position: fixed;
         top: calc(var(--topnav-height, 78px) + 1rem);
-        right: 1.5rem;
-        max-width: 360px;
+        right: 1rem;
+        width: min(360px, calc(100vw - 2rem));
         padding: 1rem 1.2rem;
         border-radius: 16px;
         color: white;

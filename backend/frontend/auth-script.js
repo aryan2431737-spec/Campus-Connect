@@ -250,6 +250,14 @@ if (!document.getElementById('auth-notification-styles')) {
     style.textContent = `
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        @media (max-width: 560px) {
+            .auth-notification {
+                left: 1rem !important;
+                right: 1rem !important;
+                top: 1rem !important;
+                max-width: calc(100vw - 2rem) !important;
+            }
+        }
     `;
     document.head.appendChild(style);
 }
