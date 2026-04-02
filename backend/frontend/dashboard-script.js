@@ -154,6 +154,11 @@ async function refreshCurrentUser() {
 }
 
 function initializeSocket() {
+    if (typeof io === 'undefined') {
+        console.warn('Realtime socket client is unavailable in this deployment target.');
+        return;
+    }
+
     const token = localStorage.getItem('token');
     if (!token) return;
 
@@ -878,22 +883,33 @@ async function sendMessage() {
         return;
     }
 
-    if (!socket?.connected) {
-        showDashboardNotification('Chat is offline. Refresh the page and try again.', 'error');
-        return;
-    }
-
     const receiverId = state.currentReceiverId || resolveReceiverIdFromMatchId(state.currentChatId);
     if (!receiverId) {
         showDashboardNotification('Could not identify the chat recipient.', 'error');
         return;
     }
 
-    socket.emit('send_message', {
-        matchId: state.currentChatId,
-        receiverId,
-        message
-    });
+    if (socket?.connected) {
+        socket.emit('send_message', {
+            matchId: state.currentChatId,
+            receiverId,
+            message
+        });
+    } else {
+        try {
+            const updatedChat = await apiCall(`/chat/${state.currentChatId}/messages`, {
+                method: 'POST',
+                body: JSON.stringify({ receiverId, message })
+            });
+
+            state.currentChat = updatedChat;
+            renderActiveChat(updatedChat);
+            await refreshDashboardData({ announceMatches: false });
+        } catch (error) {
+            showDashboardNotification(error.message || 'Could not send message', 'error');
+            return;
+        }
+    }
 
     if (messageInput) {
         messageInput.value = '';

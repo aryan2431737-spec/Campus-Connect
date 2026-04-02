@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 
-const configuredUploadRoot = process.env.UPLOADS_DIR || path.join(__dirname, '..', 'uploads');
+const isVercel = Boolean(process.env.VERCEL);
+const defaultUploadRoot = isVercel ? '/tmp/uploads' : path.join(__dirname, '..', 'uploads');
+const configuredUploadRoot = process.env.UPLOADS_DIR || defaultUploadRoot;
 const uploadRoot = path.isAbsolute(configuredUploadRoot)
     ? configuredUploadRoot
     : path.join(__dirname, '..', configuredUploadRoot);

@@ -4,9 +4,11 @@ const crypto = require('crypto');
 const { DatabaseSync } = require('node:sqlite');
 
 const dataRoot = path.join(__dirname, '..', 'data');
+const isVercel = Boolean(process.env.VERCEL);
+const defaultDbPath = isVercel ? '/tmp/lostandfound.sqlite' : path.join(dataRoot, 'lostandfound.sqlite');
 fs.mkdirSync(dataRoot, { recursive: true });
 
-const configuredDbPath = process.env.SQLITE_PATH || path.join(dataRoot, 'lostandfound.sqlite');
+const configuredDbPath = process.env.SQLITE_PATH || defaultDbPath;
 const databasePath = path.isAbsolute(configuredDbPath)
     ? configuredDbPath
     : path.join(__dirname, '..', configuredDbPath);

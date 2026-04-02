@@ -119,4 +119,31 @@ router.get('/:matchId', auth, async (req, res) => {
     }
 });
 
+router.post('/:matchId/messages', auth, async (req, res) => {
+    try {
+        const { receiverId, message } = req.body || {};
+
+        if (!receiverId || !message || !String(message).trim()) {
+            return res.status(400).json({ message: 'receiverId and message are required' });
+        }
+
+        const updatedChat = store.appendChatMessage({
+            matchId: req.params.matchId,
+            senderId: req.user._id,
+            receiverId: String(receiverId),
+            message: String(message).trim()
+        });
+
+        return res.status(201).json(updatedChat);
+    } catch (err) {
+        console.error('POST /chat/:matchId/messages error:', err);
+
+        if (err.message === 'Not authorized to send message in this chat') {
+            return res.status(403).json({ message: err.message });
+        }
+
+        return res.status(500).json({ message: 'Server error' });
+    }
+});
+
 module.exports = router;
