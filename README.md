@@ -3,19 +3,6 @@
 This project is a full-stack lost-and-found web application for college users. It lets students create accounts, report lost items, report found items, detect possible matches automatically, notify the affected user, and open a real-time chat between the lost-item user and the found-item user.
 
 The frontend is served directly by the Node.js backend, so running one server starts both the API and the web application.
-
-## One-Click Live Deploy
-
-Use Render Blueprint (included in this repo):
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/aryan2431737-spec/Campus-Connect)
-
-After clicking Deploy, Render reads `render.yaml`, creates a Node web service from this repo, generates `JWT_SECRET`, and deploys automatically.
-
-For free plan:
-- SQLite data and uploads are stored on the service filesystem (ephemeral on restart/redeploy).
-- App still runs end-to-end, but data is not permanent unless you move to a persistent external database/storage.
-
 ## Project Flow
 
 1. A user registers or logs in with email or student ID and password.
@@ -111,43 +98,6 @@ The project uses a score-based matching approach:
 - Shared title, description, and location keywords increase the score
 
 Only candidates with a positive score are returned as potential matches, and the strongest matches are shown first.
-
-## API Overview
-
-### Authentication
-
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-
-### Profile
-
-- `GET /api/profile`
-- `PUT /api/profile/edit`
-
-### Items
-
-- `GET /api/items`
-- `GET /api/items/:id`
-- `POST /api/items/lost`
-- `POST /api/items/found`
-- `POST /api/items/upload`
-- `PUT /api/items/:id`
-- `DELETE /api/items/:id`
-
-### Chat
-
-- `POST /api/chat/start`
-- `GET /api/chat/:matchId`
-- `GET /api/chat/user/:userId`
-
-### Dashboard and Notifications
-
-- `GET /api/dashboard`
-- `GET /api/notifications`
-- `PUT /api/notifications/read`
-- `GET /api/reports`
-- `GET /api/health`
 
 ## Folder Structure
 
