@@ -11,14 +11,14 @@ The frontend is served directly by the Node.js backend, so running one server st
 3. When a lost item is submitted, the item is stored in the local SQLite database and shown in the user's dashboard.
 4. When a found item is submitted, the backend checks existing lost items for possible matches.
 5. Matching uses item attributes such as:
-   - title and description keywords
-   - category
-   - location
-   - uploaded image hash
+- title and description keywords
+- category
+- location
+- uploaded image hash
 6. If a match is found:
-   - the matched lost-item user receives a notification
-   - a chat session is created automatically
-   - both users can open the Messages section and chat in real time
+- the matched lost-item user receives a notification
+- a chat session is created automatically
+- both users can open the Messages section and chat in real time
 7. Users can also update profile photos, browse their own reports, and track match status from the dashboard.
 
 ## Main Features
@@ -59,34 +59,34 @@ The frontend is served directly by the Node.js backend, so running one server st
 
 ### Storage
 
-- SQLite database file: `data/lostandfound.sqlite`
-- Uploaded avatars: `uploads/avatars`
-- Uploaded item images: `uploads/items`
+- SQLite database file: `backend/data/lostandfound.sqlite`
+- Uploaded avatars: `backend/uploads/avatars`
+- Uploaded item images: `backend/uploads/items`
 
 ## Important Modules
 
-- `server.js`
+- `backend/server.js`
   Runs the Express server, serves the frontend, mounts the API routes, and handles Socket.IO chat events.
 
-- `data/store.js`
+- `backend/data/store.js`
   Contains the SQLite database setup and all main data access logic for users, items, chats, notifications, and reports.
 
-- `routes/auth.js`
+- `backend/routes/auth.js`
   Handles registration, login, and token-based current-user lookup.
 
-- `routes/items.js`
+- `backend/routes/items.js`
   Handles lost item reports, found item reports, uploads, item listing, automatic matching, notification creation, and chat creation for matched users.
 
-- `routes/chat.js`
+- `backend/routes/chat.js`
   Starts chat sessions, opens existing chats, validates participants, and loads chat data.
 
-- `routes/dashboard.js`
+- `backend/routes/dashboard.js`
   Builds the dashboard response containing user items, match summary, chat summary, notifications, and stats.
 
-- `routes/profile.js`
+- `backend/routes/profile.js`
   Loads profile information and updates profile details or avatar.
 
-- `utils/matchUtils.js`
+- `backend/utils/matchUtils.js`
   Contains the matching and scoring logic used to compare lost and found items.
 
 ## Matching Logic
@@ -140,23 +140,24 @@ Only candidates with a positive score are returned as potential matches, and the
 ## Folder Structure
 
 ```text
-backend/
-|-- config/
-|-- data/
-|-- frontend/
-|-- middleware/
-|-- routes/
-|-- uploads/
-|-- utils/
-|-- .env.example
-|-- package.json
-|-- README.md
-`-- server.js
+lost and found website/
+|-- backend/
+|   |-- config/
+|   |-- data/
+|   |-- frontend/
+|   |-- middleware/
+|   |-- routes/
+|   |-- uploads/
+|   |-- utils/
+|   |-- .env.example
+|   |-- package.json
+|   `-- server.js
+`-- README.md
 ```
 
 ## Setup and Run
 
-1. Open the `backend` folder.
+1. Open terminal in the `backend` folder.
 2. Install dependencies:
 
 ```bash
