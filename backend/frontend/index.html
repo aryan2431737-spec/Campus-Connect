@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect - Premium Lost and Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="how-it-works.css">
+    <style>
+        :root {
+            --navy: #08131f;
+            --ink: #0f172a;
+            --teal: #0f766e;
+            --cyan: #0ea5e9;
+            --mint: #5eead4;
+            --orange: #f97316;
+            --sand: #f8fafc;
+            --panel: rgba(255, 255, 255, 0.03);
+            --panel-dark: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: white;
+            background: #08131f;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(94, 234, 212, 0.08) 0%, transparent 40%);
+        }
+
+        .background-blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            top: -100px;
+            right: -100px;
+            background: var(--cyan);
+            animation: float 10s ease-in-out infinite alternate;
+        }
+
+        .blob-2 {
+            bottom: -100px;
+            left: -100px;
+            background: var(--teal);
+            animation: float 8s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .shell {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-mark {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--cyan), var(--teal));
+            box-shadow: 0 12px 24px rgba(14, 165, 233, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .brand-copy h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-copy p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.6rem;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--cyan);
+            color: #08131f;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
+            background: #ffffff;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-copy {
+            max-width: 640px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--cyan);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+
+        .hero-copy h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #fff 40%, rgba(255,255,255,0.4));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-copy p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .hero-stage {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 2000px;
+        }
+
+        .stage-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 2rem;
+            padding-bottom: 1.5rem;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .stage-card:hover {
+            transform: translateZ(20px) scale(1.02);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+
+        .stage-card-1 {
+            width: 380px;
+            transform: rotateY(-15deg) rotateX(10deg);
+        }
+
+        .stage-card-2 {
+            position: absolute;
+            top: 60px;
+            right: -20px;
+            width: 320px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(15, 118, 110, 0.2));
+            transform: rotateY(15deg) rotateX(-5deg) translateZ(50px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-tag {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--cyan);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.4rem 0.8rem;
+            border-radius: 99px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        .section {
+            padding: 8rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header p {
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-10px);
+            border-color: rgba(14, 165, 233, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            color: var(--cyan);
+            border: 1px solid var(--border);
+        }
+
+        .feature-card h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(15, 118, 110, 0.1));
+            border-radius: 60px;
+            padding: 6rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 4rem;
+        }
+
+        .cta h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+
+    <div class="shell">
+        <nav class="nav">
+            <div class="brand">
+                <div class="brand-mark">
+                    <i data-feather="search"></i>
+                </div>
+                <div class="brand-copy">
+                    <h1>Campus Connect</h1>
+                    <p>Reclaiming lost artifacts</p>
+                </div>
+            </div>
+            <div id="navActions" class="nav-actions">
+                <a href="auth.html" class="btn btn-secondary">Sign In</a>
+                <a href="auth.html" class="btn btn-primary">
+                    Join Platform
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Modern Lost & Found Experience</span>
+                <h2>Find what you lost. Return what you found.</h2>
+                <p>
+                    The smartest way to reconnect with your belongings on campus. Report items, discover matches instantly, and coordinate returns safely.
+                </p>
+                <div id="heroActions" class="hero-actions">
+                    <a href="auth.html" class="btn btn-primary">
+                        Get Started
+                        <i data-feather="plus"></i>
+                    </a>
+                    <button onclick="showHowItWorks()" class="btn btn-secondary">
+                        How it works
+                    </button>
+                </div>
+            </div>
+
+
+
+            <div class="hero-stage">
+                <div class="stage-card stage-card-1">
+                    <div class="card-header">
+                        <span class="card-tag">RECENTLY LOST</span>
+                        <i data-feather="clock" size="16"></i>
+                    </div>
+                    <h4 class="card-title">Sony WH-1000XM4</h4>
+                    <p class="card-desc">Left in Library Study Room 4. Black color, with a small scratch on left cup.</p>
+                </div>
+
+                <div class="stage-card stage-card-2">
+                    <div class="card-header">
+                        <span class="card-tag" style="background: rgba(15, 118, 110, 0.3); color: #5eead4;">MATCH FOUND</span>
+                        <i data-feather="zap" size="16"></i>
+                    </div>
+                    <h4 class="card-title">Headphones Found</h4>
+                    <p class="card-desc">Found near Library entrance. Matching description detected!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h3>Built for Campus Recovery</h3>
+                <p>Everything you need to turn a lost item into a success story.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-feather="zap"></i></div>
+                    <h4>AI Matching</h4>
+                    <p>Our intelligent system automatically detects potential matches between lost and found reports based on details.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-feather="message-circle"></i></div>
+                    <h4>Secure Chat</h4>
+                    <p>Coordinate returns safely through our internal messaging system without sharing personal contact info.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i data-feather="shield"></i></div>
+                    <h4>Verified Users</h4>
+                    <p>Only registered campus members can post and interact, ensuring a safe and trusted environment.</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="cta">
+            <h3>Start Your Search Now</h3>
+            <p>Don't let your belongings stay lost. Join hundreds of students already using Campus Connect.</p>
+            <div id="ctaActions" class="cta-actions">
+                <a href="auth.html" class="btn btn-primary btn-lg" style="padding: 1.2rem 2.4rem; font-size: 1.2rem;">
+                    Launch Campus Connect
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 Campus Connect - The Official Campus Lost & Found Hub.</p>
+        </footer>
+    </div>
+
+    <script>
+        feather.replace();
+
+        // Check Auth
+        const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true' && localStorage.getItem('token');
+        if (isAuthenticated) {
+            const dashboardButtons = `
+                <a href="dashboard.html" class="btn btn-primary">
+                    Dashboard
+                    <i data-feather="layout"></i>
+                </a>
+                <button onclick="logout()" class="btn btn-secondary">
+                    Log out
+                </button>`;
+
+            document.getElementById('navActions').innerHTML = dashboardButtons;
+            document.getElementById('heroActions').innerHTML = dashboardButtons;
+            document.getElementById('ctaActions').innerHTML = dashboardButtons;
+            feather.replace();
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.reload();
+        }
+
+
+    </script>
+
+    <!-- 3D How It Works Modal -->
+    <div id="howItWorksModal" class="modal">
+        <button id="close-3d" class="close-3d"><i data-feather="x"></i></button>
+        
+        <div class="modal-3d-container">
+            <div id="threejs-canvas-container"></div>
+            
+            <div class="ui-overlay">
+                <div class="ui-header">
+                    <h2>Operation Flow</h2>
+                    <p>System Architecture & User Experience</p>
+                </div>
+
+                <div class="hud-element hud-1">
+                    <div class="hud-label">System Status</div>
+                    <div class="hud-value" id="step-indicator">NODE_01_ACTIVE</div>
+                </div>
+
+                <div class="hud-element hud-2">
+                    <div class="hud-label">Transmission</div>
+                    <div class="hud-value" id="progress-indicator">33%</div>
+                </div>
+
+                <div class="step-info-container">
+                    <div class="step-info step-info-1 active">
+                        <div class="step-number">01</div>
+                        <h3>Report Artifact</h3>
+                        <p>Lost an essential item? Capture a high-resolution image and upload it to our campus grid. Your report becomes a digital beacon, instantly visible to the community while our system initiates a sector-wide scan for potential matches.</p>
+                    </div>
+                    <div class="step-info step-info-2">
+                        <div class="step-number">02</div>
+                        <h3>AI Match Matrix</h3>
+                        <p>Our intelligent matching engine analyzes visual data and descriptions between lost and found reports. When a high-probability match is detected between your lost item and a found artifact, the system establishes a secure link between both parties.</p>
+                    </div>
+                    <div class="step-info step-info-3">
+                        <div class="step-number">03</div>
+                        <h3>Secure Exchange</h3>
+                        <p>Once a match is confirmed, engage in encrypted peer-to-peer communication. Coordinate a safe meeting point on campus through our verified exchange protocol to reclaim your belongings and restore order to your campus life.</p>
+                    </div>
+                </div>
+
+                <div class="ui-footer">
+                    <div class="progress-dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+
+                    <div class="nav-controls">
+                        <button id="prev-3d" class="control-btn" disabled>
+                            <i data-feather="chevron-left"></i>
+                        </button>
+                        <button id="next-3d" class="control-btn">
+                            <i data-feather="chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="how-it-works-3d.js"></script>
+</body>
+</html>

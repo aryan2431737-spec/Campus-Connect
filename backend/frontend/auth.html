@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect - Secure Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="auth-style.css">
+</head>
+<body>
+    <div class="background-blob blob-1"></div>
+    <div class="background-blob blob-2"></div>
+
+    <div class="main-container">
+        <a href="index.html" class="back-home">
+            <i data-feather="arrow-left"></i>
+            Back to Home
+        </a>
+
+        <div class="auth-card">
+            <div class="brand-header">
+                <div class="brand-mark">
+                    <i data-feather="search"></i>
+                </div>
+                <h1>Campus Connect</h1>
+                <p>Secure Portal</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button id="loginTab" class="tab-btn active" onclick="showLogin()">Sign In</button>
+                <button id="signupTab" class="tab-btn" onclick="showSignup()">Create Account</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form-content active">
+                <form id="loginFormSubmit" class="form-grid">
+                    <div class="input-group">
+                        <label>Email or Student ID</label>
+                        <div class="input-wrapper">
+                            <i data-feather="mail"></i>
+                            <input type="text" id="loginIdentifier" name="identifier" placeholder="name@campus.edu or S12345" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-row">
+                            <label>Password</label>
+                            <a href="#" class="forgot-pwd">Forgot?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <i data-feather="lock"></i>
+                            <input type="password" id="loginPassword" name="password" placeholder="••••••••" required>
+                            <button type="button" class="toggle-pwd" onclick="togglePassword('loginPassword')">
+                                <i data-feather="eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span>Sign In</span>
+                        <i data-feather="log-in"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form-content">
+                <form id="signupFormSubmit" class="form-grid">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Campus Email</label>
+                        <div class="input-wrapper">
+                            <i data-feather="mail"></i>
+                            <input type="email" id="signupEmail" name="email" placeholder="name@campus.edu" required>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Student ID</label>
+                            <input type="text" id="studentId" name="studentId" placeholder="S12345" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Contact</label>
+                            <input type="tel" id="contactNumber" name="contact" placeholder="+1..." required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i data-feather="lock"></i>
+                            <input type="password" id="signupPassword" name="password" placeholder="Min. 8 characters" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i data-feather="shield"></i>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required>
+                        </div>
+                    </div>
+
+                    <label class="terms-check">
+                        <input type="checkbox" name="terms" required>
+                        <span>I agree to the Terms & Privacy Policy</span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span>Create Account</span>
+                        <i data-feather="user-plus"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth-script.js?v=2"></script>
+    <script>
+        feather.replace();
+        
+        function showLogin() {
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('signupForm').classList.remove('active');
+            document.getElementById('loginTab').classList.add('active');
+            document.getElementById('signupTab').classList.remove('active');
+        }
+
+        function showSignup() {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('signupForm').classList.add('active');
+            document.getElementById('loginTab').classList.remove('active');
+            document.getElementById('signupTab').classList.add('active');
+        }
+    </script>
+</body>
+</html>

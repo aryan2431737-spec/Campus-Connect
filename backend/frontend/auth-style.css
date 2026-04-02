@@ -1,0 +1,245 @@
+/* Auth Page Specific Styles */
+body {
+    background: #08131f;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    color: white;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 480px;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.back-home {
+    position: absolute;
+    top: -3rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.back-home:hover {
+    color: white;
+    transform: translateX(-5px);
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    padding: 3rem;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+}
+
+.brand-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.brand-mark {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--cyan), var(--teal));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+}
+
+.brand-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.brand-header p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.auth-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.4rem;
+    border-radius: 16px;
+    margin-bottom: 2.5rem;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form-content {
+    display: none;
+}
+
+.auth-form-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.forgot-pwd {
+    font-size: 0.8rem;
+    color: var(--cyan);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 1.2rem;
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.input-wrapper input, .input-group input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+    padding-left: 3.2rem;
+    color: white;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.input-row input {
+    padding-left: 1.2rem;
+}
+
+.input-wrapper input:focus, .input-group input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--cyan);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.toggle-pwd {
+    position: absolute;
+    right: 1.2rem;
+    background: none;
+    border: none;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.terms-check {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.terms-check input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--cyan);
+}
+
+.background-blob {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.blob-1 {
+    top: -200px;
+    right: -200px;
+    background: var(--cyan);
+}
+
+.blob-2 {
+    bottom: -200px;
+    left: -200px;
+    background: var(--teal);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 500px) {
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+}
