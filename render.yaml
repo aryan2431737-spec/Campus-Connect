@@ -3,9 +3,9 @@ services:
     name: campus-connect
     runtime: node
     plan: free
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: npm --prefix backend install
+    startCommand: npm --prefix backend start
+    healthCheckPath: /api/health
     autoDeploy: true
     envVars:
       - key: NODE_ENV
@@ -13,10 +13,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: SQLITE_PATH
-        value: /var/data/lostandfound.sqlite
+        value: ./data/lostandfound.sqlite
       - key: UPLOADS_DIR
-        value: /var/data/uploads
-    disk:
-      name: campus-connect-data
-      mountPath: /var/data
-      sizeGB: 1
+        value: ./uploads

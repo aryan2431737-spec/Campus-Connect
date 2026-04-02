@@ -10,7 +10,11 @@ Use Render Blueprint (included in this repo):
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/aryan2431737-spec/Campus-Connect)
 
-After clicking Deploy, Render reads `render.yaml`, creates the service, provisions a persistent disk, generates `JWT_SECRET`, and deploys automatically.
+After clicking Deploy, Render reads `render.yaml`, creates a Node web service from this repo, generates `JWT_SECRET`, and deploys automatically.
+
+For free plan:
+- SQLite data and uploads are stored on the service filesystem (ephemeral on restart/redeploy).
+- App still runs end-to-end, but data is not permanent unless you move to a persistent external database/storage.
 
 ## Project Flow
 
