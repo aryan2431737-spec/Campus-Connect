@@ -1,7 +1,6 @@
 const express = require('express');
 const router  = express.Router();
 
-// GET /api/about
 router.get('/', (req, res) => {
     res.json({
         name: 'Campus Connect Lost & Found',
