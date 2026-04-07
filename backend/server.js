@@ -40,7 +40,7 @@ const uploadsDir = path.isAbsolute(configuredUploadsDir)
 fs.mkdirSync(uploadsDir, { recursive: true });
 
 app.use('/uploads', express.static(uploadsDir));
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/items', require('./routes/items'));
@@ -56,7 +56,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
 
 if (io) {

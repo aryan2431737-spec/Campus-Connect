@@ -22,7 +22,14 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'Password must be at least 8 characters' });
         }
 
-        if (store.getUserByEmail(email)) {
+        const existingEmailUser = store.getUserByEmail(email);
+        if (existingEmailUser) {
+            if (existingEmailUser.authProvider === 'google') {
+                return res.status(400).json({ 
+                    message: 'This email is already registered using Google. Please login using Google instead.',
+                    isGoogleAuthError: true
+                });
+            }
             return res.status(400).json({ message: 'Email already registered' });
         }
 

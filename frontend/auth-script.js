@@ -198,6 +198,11 @@ async function handleSignup(e) {
         const data = await response.json();
 
         if (!response.ok) {
+            if (data.isGoogleAuthError) {
+                // Show a specific popup for google auth collision
+                alert(data.message);
+                throw new Error('GoogleAuthCollision');
+            }
             throw new Error(data.message || 'Registration failed');
         }
 
@@ -211,7 +216,10 @@ async function handleSignup(e) {
 
     } catch (error) {
         console.error('Signup error:', error);
-        showNotification(error.message || 'Registration failed. Please try again.', 'error');
+        // If it's a known error that was already alerted, don't show the toast notification again
+        if (error.message !== 'GoogleAuthCollision') {
+            showNotification(error.message || 'Registration failed. Please try again.', 'error');
+        }
         submitBtn.disabled = false;
         setAuthButtonLabel(submitBtn, 'Create Account');
     }

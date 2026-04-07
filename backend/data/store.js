@@ -74,9 +74,11 @@ function initializeDatabase() {
             contact TEXT NOT NULL,
             avatar TEXT NOT NULL DEFAULT '',
             role TEXT NOT NULL DEFAULT 'user',
+            authProvider TEXT NOT NULL DEFAULT 'local',
             createdAt TEXT NOT NULL,
             updatedAt TEXT NOT NULL
         );
+        try { db.exec("ALTER TABLE users ADD COLUMN authProvider TEXT NOT NULL DEFAULT 'local'"); } catch (e) {}
 
         CREATE TABLE IF NOT EXISTS items (
             id TEXT PRIMARY KEY,
@@ -188,6 +190,7 @@ function toUser(row, options = {}) {
         contact: row.contact || '',
         avatar: row.avatar || '',
         role: row.role || 'user',
+        authProvider: row.authProvider || 'local',
         createdAt: row.createdAt,
         updatedAt: row.updatedAt
     };
@@ -325,7 +328,7 @@ function findUserByLoginValue(loginValue, options = {}) {
     return toUser(row, options);
 }
 
-function createUser({ firstName, lastName, email, passwordHash, studentId, contact, avatar = '', role = 'user' }) {
+function createUser({ firstName, lastName, email, passwordHash, studentId, contact, avatar = '', role = 'user', authProvider = 'local' }) {
     ensureInitialized();
     const timestamp = nowIso();
     const id = createId();
@@ -334,9 +337,9 @@ function createUser({ firstName, lastName, email, passwordHash, studentId, conta
 
     run(
         `INSERT INTO users (
-            id, firstName, lastName, name, email, passwordHash, studentId, contact, avatar, role, createdAt, updatedAt
+            id, firstName, lastName, name, email, passwordHash, studentId, contact, avatar, role, authProvider, createdAt, updatedAt
         ) VALUES (
-            :id, :firstName, :lastName, :name, :email, :passwordHash, :studentId, :contact, :avatar, :role, :createdAt, :updatedAt
+            :id, :firstName, :lastName, :name, :email, :passwordHash, :studentId, :contact, :avatar, :role, :authProvider, :createdAt, :updatedAt
         )`,
         {
             id,
@@ -349,6 +352,7 @@ function createUser({ firstName, lastName, email, passwordHash, studentId, conta
             contact: String(contact || '').trim(),
             avatar: String(avatar || '').trim(),
             role,
+            authProvider,
             createdAt: timestamp,
             updatedAt: timestamp
         }
